@@ -1,0 +1,49 @@
+<div class="card mt-2">
+  <div class="card-header">
+    {{ title }}
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-4">
+        <button class="btn btn-success" (click)="hideShowImage()">Hide/Show Image</button>
+      </div>
+      <div class="col-8">
+        <input type="text" (keyup)="search($event)" class="form-control col-6">
+      </div>
+    </div>
+
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <ng-container *ngFor="let column of columns">
+          <th scope="col" *ngIf="column == 'Image'" [hidden]="hidden">
+              {{ column }}
+          </th>
+          <th scope="col" *ngIf="column !== 'Image'">
+            {{ column }}
+          </th>
+        </ng-container>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <th scope="row">{{ i + 1}}</th>
+        <td [hidden]="hidden"><img [src]="user.image" width="100" alt=""></td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email}}</td>
+        <td>{{ user.address}}</td>
+        <td>{{ user.phone}}</td>
+        <td>
+          <ng-container *ngIf="user.status">
+            {{ user.status }}
+          </ng-container>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="delete(i)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
