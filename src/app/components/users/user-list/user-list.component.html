@@ -1,49 +1,59 @@
 <div class="card mt-2">
   <div class="card-header">
-    {{ title }}
+    {{ users | json }}
   </div>
   <div class="card-body">
     <div class="row mb-3">
       <div class="col-4">
-        <button class="btn btn-success" (click)="hideShowImage()">Hide/Show Image</button>
+        <button mat-raised-button color="primary">Primary</button>
       </div>
       <div class="col-8">
         <input type="text" (keyup)="search($event)" class="form-control col-6">
       </div>
     </div>
-
-    <table class="table">
-      <thead class="thead-light">
-      <tr>
-        <ng-container *ngFor="let column of columns">
-          <th scope="col" *ngIf="column == 'Image'" [hidden]="hidden">
-              {{ column }}
-          </th>
-          <th scope="col" *ngIf="column !== 'Image'">
-            {{ column }}
-          </th>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="No">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> 1 </td>
         </ng-container>
 
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users; let i = index">
-        <th scope="row">{{ i + 1}}</th>
-        <td [hidden]="hidden"><img [src]="user.image" width="100" alt=""></td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email}}</td>
-        <td>{{ user.address}}</td>
-        <td>{{ user.phone}}</td>
-        <td>
-          <ng-container *ngIf="user.status">
-            {{ user.status }}
-          </ng-container>
-        </td>
-        <td>
-          <button class="btn btn-danger" (click)="delete(i)">Delete</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <ng-container matColumnDef="Image">
+          <th mat-header-cell *matHeaderCellDef> Image </th>
+          <td mat-cell *matCellDef="let element"><img src="{{element.image }}" alt="">  </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name | lowercase}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Address">
+          <th mat-header-cell *matHeaderCellDef> Address </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[1, 2, 3]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
 </div>

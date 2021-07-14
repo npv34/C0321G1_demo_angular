@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IUser} from "../../IUser";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-user-list',
@@ -47,11 +49,24 @@ export class UserListComponent implements OnInit {
       phone: '089009090',
     }
   ];
-  hidden: boolean = false
+  usersFilter: void | IUser[] = [];
+  hidden: boolean = false;
+
+  displayedColumns: string[] = ["No", "Image", "Name", "Email", "Address", "Phone", "Status"];
+  dataSource = new MatTableDataSource<IUser>(this.users);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.usersFilter = this.users;
+    console.log(this.usersFilter);
+  }
+
+  ngAfterViewInit() {
+    // @ts-ignore
+    this.dataSource.paginator = this.paginator;
   }
 
   delete(index: number) {
@@ -66,6 +81,12 @@ export class UserListComponent implements OnInit {
 
   search(event: any) {
     let keyword = event.target.value;
-    console.log(keyword)
+    this.usersFilter = (keyword) ? this.filter(keyword) : this.users
+  }
+
+  filter(keyword: string) {
+      return this.users.filter((user: IUser) => {
+        return user.name.toLowerCase().indexOf(keyword) != -1;
+      })
   }
 }
