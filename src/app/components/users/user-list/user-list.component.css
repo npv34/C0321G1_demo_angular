@@ -5,3 +5,7 @@ table {
 img {
   width: 100px;
 }
+
+.mat-row:hover .mat-cell {
+  background-color: #c2b7b7;
+}
