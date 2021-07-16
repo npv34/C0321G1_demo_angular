@@ -8,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   menus = [
-    "Home", "Contact", "About", "Blogs"
+    {
+      name: "Home",
+      url: ''
+    },
+    {
+      name: 'Users',
+      url: 'users'
+    }
   ]
   constructor() { }
 

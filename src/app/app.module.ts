@@ -15,6 +15,9 @@ import { InputSearchComponent } from './components/input-search/input-search.com
 import { DialogExampleComponent } from './components/dialog-example/dialog-example.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
+import { UserAddComponent } from './components/users/user-add/user-add.component';
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -23,19 +26,22 @@ import {MatDialogModule} from "@angular/material/dialog";
     UserListComponent,
     MessageComponent,
     InputSearchComponent,
-    DialogExampleComponent
+    DialogExampleComponent,
+    UserAddComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        MatInputModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
