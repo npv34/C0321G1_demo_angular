@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-user-add',
@@ -10,7 +11,8 @@ export class UserAddComponent implements OnInit {
   hide = true;
   formAddUser: FormGroup | undefined;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -19,13 +21,18 @@ export class UserAddComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]],
+      image: ['']
     })
   }
 
   submit() {
+    this.formAddUser?.patchValue({
+      image: 'https://img.icons8.com/bubbles/2x/user.png'
+    })
     let data = this.formAddUser?.value;
-    console.log(data)
+    this.userService.add(data);
+    console.log(this.userService.getAll())
   }
 
   getErrorMessageEmail() {

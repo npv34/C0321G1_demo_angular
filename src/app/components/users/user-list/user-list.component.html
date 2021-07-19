@@ -60,6 +60,7 @@
                 <mat-icon (click)="delete(i)">delete</mat-icon>
               </button>
               <button mat-raised-button (click)="openDialog(i)">Detail</button>
+              <button mat-raised-button color="primary" [routerLink]="[i, 'edit']">Edit</button>
 
             </div>
           </td>

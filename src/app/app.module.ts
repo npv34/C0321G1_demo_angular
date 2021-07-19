@@ -18,6 +18,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { UserAddComponent } from './components/users/user-add/user-add.component';
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
+import { MasterComponent } from './components/layouts/master/master.component';
+import { LoginComponent } from './components/login/login.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import {ReactiveFormsModule} from "@angular/forms";
     MessageComponent,
     InputSearchComponent,
     DialogExampleComponent,
-    UserAddComponent
+    UserAddComponent,
+    MasterComponent,
+    LoginComponent,
+    UserEditComponent
   ],
     imports: [
         BrowserModule,
