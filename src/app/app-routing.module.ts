@@ -10,7 +10,7 @@ import {UserEditComponent} from "./components/users/user-edit/user-edit.componen
 
 const routes: Routes = [
   {
-    path:'admin',
+    path: 'admin',
     redirectTo: 'admin/users'
   },
   {
@@ -29,6 +29,10 @@ const routes: Routes = [
         path: 'users/:id/edit',
         component: UserEditComponent,
       },
+      {
+        path: 'blogs',
+        loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule)
+      }
 
 
     ], canActivate: [AuthGuard]
