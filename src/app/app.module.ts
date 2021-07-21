@@ -21,6 +21,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MasterComponent} from './components/layouts/master/master.component';
 import {LoginComponent} from './components/login/login.component';
 import {UserEditComponent} from './components/users/user-edit/user-edit.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {UserEditComponent} from './components/users/user-edit/user-edit.componen
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -35,29 +35,16 @@
           <th mat-header-cell *matHeaderCellDef> Email </th>
           <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="Address">
-          <th mat-header-cell *matHeaderCellDef> Address </th>
-          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="Phone">
           <th mat-header-cell *matHeaderCellDef> Phone </th>
           <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
         </ng-container>
-
-        <ng-container matColumnDef="Status">
-          <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="Action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element; let i = index">
             <div class="example-button-container">
-              <button mat-fab color="warn" aria-label="Example icon button with a delete icon">
-                <mat-icon (click)="delete(i)">delete</mat-icon>
+              <button (click)="delete(element.id)" mat-fab color="warn" aria-label="Example icon button with a delete icon">
+                <mat-icon >delete</mat-icon>
               </button>
               <button mat-raised-button (click)="openDialog(i)">Detail</button>
               <button mat-raised-button color="primary" [routerLink]="[i, 'edit']">Edit</button>

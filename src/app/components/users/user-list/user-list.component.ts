@@ -14,15 +14,14 @@ import {UserService} from "../../../services/user.service";
 export class UserListComponent implements OnInit {
 
   title: string = "User manager"
-  columns: string[] = ["#", "Image", "Name", "Email", "Address", "Phone", "Status", "Action"];
   txt: string | undefined;
 
   users: IUser[] = [];
   usersFilter: void | IUser[] = [];
   hidden: boolean = false;
 
-  displayedColumns: string[] = ["No", "Image", "Name", "Email", "Address", "Phone", "Status", "Action"];
-  dataSource = new MatTableDataSource<IUser>(this.userService.getAll());
+  displayedColumns: string[] = ["No", "Image", "Name", "Email", "Phone", "Action"];
+  dataSource = new MatTableDataSource<IUser>(this.users);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
@@ -30,20 +29,31 @@ export class UserListComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit(): void {
-    this.users = this.userService.getAll();
-    this.usersFilter = this.users;
+    this.getAllUser();
+    // this.users = this.userService.getAll();
+    // this.usersFilter = this.users;
+  }
+  getAllUser() {
+    this.userService.getAll().subscribe(res => {
+      if (res.status == 'success') {
+        this.users = res.data;
+        this.dataSource = new MatTableDataSource<IUser>(this.users);
+        // @ts-ignore
+        this.dataSource.paginator = this.paginator;
+      }
+      console.log(res);
+    })
   }
 
-  ngAfterViewInit() {
-    // @ts-ignore
-    this.dataSource.paginator = this.paginator;
-  }
-
-  delete(index: number) {
+  delete(id: number) {
     if (confirm('Are you sure?')) {
-      this.users.splice(index, 1);
-      this.dataSource = new MatTableDataSource<IUser>(this.users);
-      this.txt = 'delete';
+        this.userService.delete(id).subscribe(res => {
+          if (res.status == 'success') {
+            this.getAllUser();
+          } else  {
+            console.log(res)
+          }
+        })
     }
   }
 

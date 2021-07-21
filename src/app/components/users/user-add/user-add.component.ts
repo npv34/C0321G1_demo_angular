@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-add',
@@ -12,7 +13,8 @@ export class UserAddComponent implements OnInit {
   formAddUser: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -31,8 +33,9 @@ export class UserAddComponent implements OnInit {
       image: 'https://img.icons8.com/bubbles/2x/user.png'
     })
     let data = this.formAddUser?.value;
-    this.userService.add(data);
-    console.log(this.userService.getAll())
+    this.userService.add(data).subscribe(res => {
+       this.router.navigate(['admin/users'])
+    })
   }
 
   getErrorMessageEmail() {

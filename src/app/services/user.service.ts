@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {IUser} from "../components/IUser";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -42,17 +45,21 @@ export class UserService {
       phone: '089009090',
     }
   ];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAll(): IUser[] {
-    return this.users;
+  getAll(): Observable<any> {
+    return this.http.get(environment.url + '/users');
   }
 
-  add(user: IUser): void {
-    this.users.push(user);
+  add(user: IUser): Observable<any> {
+    return this.http.post(environment.url + '/users', user);
   }
 
   findById(index: number) {
     return this.users[index];
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(environment.url + '/users/' + id)
   }
 }
